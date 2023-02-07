@@ -132,4 +132,4 @@ kubectl apply -f konnect/mtls.yaml
 
 5. Give it a couple of minutes, as the pods need to restart.  After a short wait, you should now see 3 DP proxies on the dashboard, including the kong proxy apearing as `gateway_delegated`.
 
-6. To test, navigate to http://demo-app.app.`<external address>`.nip.io/ and you should be able to see the `Kuma Counter Demo 1.0` app.
+6. To test, navigate to `http://demo-app.app.<external address>.nip.io/` and you should be able to see the `Kuma Counter Demo 1.0` app.
