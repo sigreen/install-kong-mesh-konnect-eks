@@ -21,7 +21,7 @@ resource "random_string" "suffix" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.19.0"
+  version = "3.2.0"
 
   name                 = "simongreen-vpc"
   cidr                 = "10.0.0.0/16"
