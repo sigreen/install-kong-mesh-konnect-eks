@@ -1,7 +1,7 @@
 Installing Kong Mesh with Konnect on Amazon EKS
 ===========================================================
 
-This example includes the installation on an EKS cluster, then manual steps to install Kong Mesh Enterprise on that cluster in Standalone mode.  It also provides instructions for setting up a Konnect delegated gateway, as well as includes examples with Kuma Demo App.
+This example includes the provisioning of on an EKS cluster, then manual steps to install Kong Mesh Enterprise on that cluster in Standalone mode.  It also provides instructions for setting up a Konnect delegated gateway, as well as includes examples with Kuma Demo App.
 
 ![](img/mesh-konnect-demo-app.png "Standalone Deployment")
 
@@ -20,7 +20,7 @@ This example includes the installation on an EKS cluster, then manual steps to i
 
 Please follow the below instructions to install a vanilla instance of EKS:
 
-1. Open `/tf-provision-eks/vpc.tf` to search & replace `simongreen` with your own name.  That way, all EKS objects will be tagged with your name making them easily searchable. Also, update the AWS region and credentials profile (line 7) in this file to the region of your choice.
+1. Open `/tf-provision-eks/variables.tf` and update the default values of profile, region and aws-tag-name.
 2. Via the CLI, login to AWS using `aws configure`.
 3. Via the CLI, `cd tf-provision-eks` then run the following Terraform commands to standup Amazon EKS:
 
@@ -161,8 +161,17 @@ kubectl apply -f mesh-demo/demo-v2.yaml
 
 ## Cleanup
 
-1. Run the following command:
+1. To cleanup Konnect, run the following command:
 
 ```
 deck reset --konnect-token-file konnect/konnect.pat --konnect-runtime-group-name <insert runtime group name> --select-tag kong-mesh-ingress
 ```
+
+2. To tear-down the EKS cluster, run the following command:
+
+```
+cd tf-provision-ekk
+terraform destroy
+```
+
+You may need to manually delete the Load Balancer via the EC2 Console for the terrafrom destroy to gracefully exit.

@@ -1,17 +1,12 @@
-variable "region" {
-  default     = "us-west-2"
-  description = "AWS region"
-}
-
 provider "aws" {
-  profile = "saml"
+  profile = var.profile
   region = var.region
 }
 
 data "aws_availability_zones" "available" {}
 
 locals {
-  cluster_name = "simongreen-eks-${random_string.suffix.result}"
+  cluster_name = "${var.aws-tag-name}-eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -23,7 +18,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.2.0"
 
-  name                 = "simongreen-vpc"
+  name                 = "${var.aws-tag-name}-vpc"
   cidr                 = "10.0.0.0/16"
   azs                  = data.aws_availability_zones.available.names
   private_subnets      = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
