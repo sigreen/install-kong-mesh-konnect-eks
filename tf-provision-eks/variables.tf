@@ -15,3 +15,15 @@ variable "aws-tag-name" {
   type = string
   description = "AWS descriptive tag"
 }
+
+variable "konnect-runtime-group" {
+  default = "se-simon-green"
+  type = string
+  description = "Konnect Runtime Group name"
+}
+
+variable "konnect-pat" {
+  description = "The personal access token for your Konnect account"
+  type        = string
+  sensitive   = true
+}
